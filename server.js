@@ -13,13 +13,10 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-const databaseURI = "mongodb://localhost/animaldatabase";
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost/animaldatabase"
+);
 
-if (process.env.MONGODB_URI) {
-  mongoose.connect(process.env.MONGODB_URI);
-} else {
-  mongoose.connect(databaseURI);
-}
 // Add routes, both API and view
 app.use(routes);
 
